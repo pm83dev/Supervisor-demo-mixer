@@ -1,0 +1,517 @@
+/* ================================
+   SUPERVISOR DEMO - DARK THEME CSS
+   ================================ */
+
+/* General Layout & Body */
+body {
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #e9ecef;
+}
+
+main {
+  flex: 1;
+}
+
+section {
+  display: none;
+  min-height: calc(
+    100vh - 200px
+  ); /* Altezza minima per spingere il footer in basso */
+}
+
+section.active {
+  display: block;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #aaa;
+  text-align: center;
+  border-top: 1px solid #3a3a5c;
+}
+
+/* ================================
+   CARDS - DARK THEME
+   ================================ */
+
+.card {
+  background: linear-gradient(135deg, #2a2a3e 0%, #363654 100%);
+  border: 1px solid #4a4a6a;
+  color: #e9ecef;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+  border-bottom: 1px solid #4a4a6a;
+  color: #fff;
+}
+
+.card-body {
+  background: rgba(42, 42, 62, 0.8);
+}
+
+/* Enhanced card hover effects */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border-color: #6c63ff;
+}
+
+/* Assicura che le card abbiano la stessa altezza */
+.chart-row .card {
+  min-height: 350px;
+}
+
+/* ================================
+   EQUIPMENT ITEMS
+   ================================ */
+
+.equipment-item {
+  background: linear-gradient(
+    135deg,
+    #3a3a5c 0%,
+    #4a4a6a 100%
+  ) !important;
+  border: 1px solid #5a5a7a;
+  color: #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.equipment-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(108, 99, 255, 0.3);
+  border-color: #6c63ff;
+}
+
+/* ================================
+   FORM CONTROLS - DARK THEME
+   ================================ */
+
+.form-control,
+.form-select {
+  background: #3a3a5c;
+  border: 1px solid #5a5a7a;
+  color: #e9ecef;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: #4a4a6a;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+  color: #fff;
+}
+
+/* ================================
+   TABLES - DARK THEME
+   ================================ */
+
+.table {
+  color: #e9ecef !important;
+  background: rgba(42, 42, 62, 0.6) !important;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table td,
+.table th {
+  color: #e9ecef !important;
+  border-color: #4a4a6a;
+  vertical-align: middle;
+  background: rgba(42, 42, 62, 0.3) !important;
+  border: 1px solid #4a4a6a;
+}
+
+.table-dark {
+  background: linear-gradient(
+    135deg,
+    #1a1a2e 0%,
+    #2d2d44 100%
+  ) !important;
+  color: #fff !important;
+}
+
+.table-dark th {
+  border-color: #4a4a6a;
+  background: linear-gradient(
+    135deg,
+    #1a1a2e 0%,
+    #2d2d44 100%
+  ) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > td {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #e9ecef !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) > td {
+  background: rgba(42, 42, 62, 0.4) !important;
+  color: #e9ecef !important;
+}
+
+/* Override any white backgrounds */
+.table tbody tr {
+  background: rgba(42, 42, 62, 0.2) !important;
+}
+
+.table tbody tr:hover {
+  background: rgba(108, 99, 255, 0.2) !important;
+}
+
+.table tbody tr:hover td {
+  background: rgba(108, 99, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+/* ================================
+   CURRENT STEP HIGHLIGHTING
+   ================================ */
+
+.table-primary {
+  background: linear-gradient(
+    135deg,
+    #6c63ff 0%,
+    #5a52d5 100%
+  ) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.5);
+  border: 1px solid #6c63ff !important;
+}
+
+.table-primary td {
+  background: transparent !important;
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.table-primary:hover {
+  background: linear-gradient(
+    135deg,
+    #5a52d5 0%,
+    #4c46b6 100%
+  ) !important;
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.7);
+  transform: translateX(3px);
+}
+
+.table-primary:hover td {
+  color: #ffffff !important;
+}
+
+/* ================================
+   RECIPE TABLE SPECIFIC STYLING
+   ================================ */
+
+#recipesTable {
+  background: rgba(42, 42, 62, 0.6) !important;
+  color: #e9ecef !important;
+}
+
+/* Recipe section card override */
+#ricette .card {
+  background: linear-gradient(
+    135deg,
+    #2a2a3e 0%,
+    #363654 100%
+  ) !important;
+  border: 1px solid #4a4a6a !important;
+  color: #e9ecef !important;
+}
+
+#ricette .card-body {
+  background: linear-gradient(
+    135deg,
+    #2a2a3e 0%,
+    #363654 100%
+  ) !important;
+  color: #e9ecef !important;
+}
+
+#ricette .card-header {
+  background: linear-gradient(
+    135deg,
+    #1a1a2e 0%,
+    #2d2d44 100%
+  ) !important;
+  border-bottom: 1px solid #4a4a6a !important;
+  color: #fff !important;
+}
+
+#recipesTable tbody tr {
+  background: rgba(42, 42, 62, 0.4) !important;
+  transition: all 0.3s ease;
+  color: #e9ecef !important;
+}
+
+#recipesTable tbody tr td {
+  color: #e9ecef !important;
+  border-color: #4a4a6a;
+  background: rgba(42, 42, 62, 0.3) !important;
+}
+
+#recipesTable tbody tr:hover {
+  background: rgba(108, 99, 255, 0.1);
+  transform: translateX(2px);
+  color: #ffffff !important;
+}
+
+#recipesTable tbody tr:hover td {
+  color: #ffffff !important;
+}
+
+#recipesTable tbody tr:nth-of-type(odd) {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e9ecef !important;
+}
+
+#recipesTable tbody tr:nth-of-type(odd) td {
+  color: #e9ecef !important;
+  background: transparent !important;
+}
+
+#recipesTable tbody tr:nth-of-type(odd):hover {
+  background: rgba(108, 99, 255, 0.15);
+  color: #ffffff !important;
+}
+
+#recipesTable tbody tr:nth-of-type(odd):hover td {
+  color: #ffffff !important;
+}
+
+/* ================================
+   PROGRESS BARS
+   ================================ */
+
+progress {
+  height: 20px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #3a3a5c;
+  border-radius: 4px;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border-radius: 4px;
+}
+
+progress::-moz-progress-bar {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border-radius: 4px;
+}
+
+.progress {
+  background: #3a3a5c;
+}
+
+.progress-bar {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+/* ================================
+   DASHBOARD STYLES
+   ================================ */
+
+.border-left-primary {
+  border-left: 4px solid #6c63ff !important;
+  background: linear-gradient(135deg, #2a2a3e 0%, #363654 100%);
+}
+
+.border-left-success {
+  border-left: 4px solid #20c997 !important;
+  background: linear-gradient(135deg, #2a2a3e 0%, #363654 100%);
+}
+
+.border-left-info {
+  border-left: 4px solid #17a2b8 !important;
+  background: linear-gradient(135deg, #2a2a3e 0%, #363654 100%);
+}
+
+.border-left-warning {
+  border-left: 4px solid #ffc107 !important;
+  background: linear-gradient(135deg, #2a2a3e 0%, #363654 100%);
+}
+
+/* ================================
+   ENHANCED TEXT COLORS
+   ================================ */
+
+.text-primary {
+  color: #6c63ff !important;
+}
+
+.text-success {
+  color: #20c997 !important;
+}
+
+.text-info {
+  color: #17a2b8 !important;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.step-info {
+  font-size: 0.9rem;
+}
+
+#dashboardChart {
+  min-height: 250px;
+  max-height: 400px;
+}
+
+/* ================================
+   MODAL DARK THEME
+   ================================ */
+
+.modal-content {
+  background: linear-gradient(135deg, #2a2a3e 0%, #363654 100%);
+  border: 1px solid #4a4a6a;
+  color: #e9ecef;
+}
+
+.modal-header {
+  border-bottom: 1px solid #4a4a6a;
+}
+
+.modal-footer {
+  border-top: 1px solid #4a4a6a;
+}
+
+/* ================================
+   BUTTON ENHANCEMENTS
+   ================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, #6c63ff 0%, #5a52d5 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a52d5 0%, #4c46b6 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+  border: none;
+  color: #000;
+  font-weight: 500;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #e0a800 0%, #c69500 100%);
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #20c997 0%, #1aa57c 100%);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #1aa57c 0%, #178f6b 100%);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  border: none;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+  transform: translateY(-1px);
+}
+
+.btn-light {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: none;
+  color: #212529;
+}
+
+.btn-light:hover {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  color: #212529;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   ENHANCED NAVBAR
+   ================================ */
+
+.navbar-dark {
+  background: linear-gradient(
+    135deg,
+    #1a1a2e 0%,
+    #2d2d44 100%
+  ) !important;
+  border-bottom: 1px solid #3a3a5c;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ================================
+   BADGE ENHANCEMENTS FOR STEP STATUS
+   ================================ */
+
+.badge.bg-success {
+  background: linear-gradient(135deg, #20c997 0%, #1aa57c 100%) !important;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 0.4em 0.8em;
+  font-size: 0.7em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(32, 201, 151, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 2px 8px rgba(32, 201, 151, 0.4); }
+  50% { box-shadow: 0 4px 16px rgba(32, 201, 151, 0.6); }
+  100% { box-shadow: 0 2px 8px rgba(32, 201, 151, 0.4); }
+}
+
+.badge.bg-success:hover {
+  background: linear-gradient(135deg, #1aa57c 0%, #178f6b 100%) !important;
+  transform: scale(1.05);
+}
