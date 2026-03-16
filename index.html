@@ -201,6 +201,14 @@
         font-size: 1.5rem;
         color: var(--white);
       }
+      .topbar-main {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+      }
+      .topbar-menu {
+        display: none;
+      }
       .topbar-right {
         display: flex;
         align-items: center;
@@ -326,7 +334,7 @@
         top: 0.7rem;
         right: 0.7rem;
         font-size: 1.6rem;
-        opacity: 0.08;
+        opacity: 1;
       }
       .kpi-label {
         font-family: var(--fm);
@@ -1062,6 +1070,96 @@
         background: var(--border);
         border-radius: 3px;
       }
+
+      /* ───── MOBILE NAVIGATION ───── */
+      .sb-toggle {
+        display: none;
+        background: rgba(13, 15, 18, 0.92);
+        border: 1px solid rgba(232, 97, 26, 0.85);
+        color: #fff;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        transition: all 0.15s;
+      }
+      .sb-toggle:hover {
+        background: var(--panel2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      }
+      .sb-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: 49;
+      }
+      .sb-overlay.open {
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        .topbar-menu {
+          display: flex;
+        }
+        .banner {
+          font-size: 0.6rem;
+          letter-spacing: 0.02em;
+          padding: 6px 0.6rem;
+          line-height: 1.4;
+        }
+        .sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.24s ease;
+          top: 0;
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0;
+          padding: 1rem 0.75rem;
+        }
+        .topbar {
+          flex-wrap: wrap;
+          gap: 0.4rem;
+        }
+        .topbar-title {
+          font-size: 1.15rem;
+        }
+        .topbar-right {
+          flex-wrap: wrap;
+          gap: 0.35rem;
+        }
+        .alarm-trend-grid {
+          grid-template-columns: 1fr !important;
+        }
+        .kpi-wide {
+          grid-column: span 1;
+        }
+        .report-stats {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        .trend-wrap {
+          height: 150px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .topbar-title {
+          font-size: 0.95rem;
+        }
+        .clock {
+          display: none;
+        }
+        .eq-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
     </style>
   </head>
   <body>
@@ -1071,8 +1169,10 @@
         >Paolo Miccoli</a
       >
       — Industrial Software Developer &nbsp;|&nbsp; Adaptable to any industrial
-      mixer: turbomixer, paddle mixer, ribbon blender
+      plant: turbomixer, paddle mixer, ribbon blender, extruder...
     </div>
+
+    <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 
     <div class="layout">
       <!-- SIDEBAR -->
@@ -1107,12 +1207,21 @@
         <!-- ═══ DASHBOARD ═══ -->
         <div id="page-dashboard" class="page active">
           <div class="topbar">
-            <div class="topbar-title">
-              <i
-                class="fas fa-tachometer-alt"
-                style="color: var(--orange); margin-right: 0.5rem"
-              ></i
-              >Supervisor Dashboard
+            <div class="topbar-main">
+              <button
+                class="sb-toggle topbar-menu"
+                onclick="toggleSidebar()"
+                title="Menu"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="topbar-title">
+                <i
+                  class="fas fa-tachometer-alt"
+                  style="color: var(--orange); margin-right: 0.5rem"
+                ></i
+                >Supervisor Dashboard
+              </div>
             </div>
             <div class="topbar-right">
               <span
@@ -1140,7 +1249,10 @@
             </div>
             <div class="kpi-grid">
               <div class="kpi orange">
-                <i class="fas fa-thermometer-half kpi-icon"></i>
+                <i
+                  class="fas fa-thermometer-half kpi-icon"
+                  style="color: var(--orange)"
+                ></i>
                 <div class="kpi-label">Mixer Temperature</div>
                 <div class="kpi-val" id="kpi-temp">--</div>
                 <div class="kpi-sub">Setpoint: 180°C</div>
@@ -1153,13 +1265,16 @@
                 </div>
               </div>
               <div class="kpi blue">
-                <i class="fas fa-cog kpi-icon"></i>
+                <i class="fas fa-cog kpi-icon" style="color: var(--blue)"></i>
                 <div class="kpi-label">Motor Speed</div>
                 <div class="kpi-val" id="kpi-rpm">--</div>
                 <div class="kpi-sub" id="kpi-rpm-sub">Nominal: 1500 RPM</div>
               </div>
               <div class="kpi yellow">
-                <i class="fas fa-weight kpi-icon"></i>
+                <i
+                  class="fas fa-weight kpi-icon"
+                  style="color: var(--yellow)"
+                ></i>
                 <div class="kpi-label">Motor Torque</div>
                 <div class="kpi-val" id="kpi-torque">--</div>
                 <div class="kpi-sub">Max: 100%</div>
@@ -1172,19 +1287,25 @@
                 </div>
               </div>
               <div class="kpi cyan">
-                <i class="fas fa-tint kpi-icon"></i>
+                <i class="fas fa-tint kpi-icon" style="color: var(--cyan)"></i>
                 <div class="kpi-label">Cooler Temperature</div>
                 <div class="kpi-val" id="kpi-cool">--</div>
                 <div class="kpi-sub">Setpoint: 60°C</div>
               </div>
               <div class="kpi green">
-                <i class="fas fa-check-circle kpi-icon"></i>
+                <i
+                  class="fas fa-check-circle kpi-icon"
+                  style="color: var(--green)"
+                ></i>
                 <div class="kpi-label">Completed Cycles</div>
                 <div class="kpi-val" id="kpi-cycles">127</div>
                 <div class="kpi-sub">Today: <span id="kpi-today">8</span></div>
               </div>
               <div class="kpi blue">
-                <i class="fas fa-chart-line kpi-icon"></i>
+                <i
+                  class="fas fa-chart-line kpi-icon"
+                  style="color: var(--blue)"
+                ></i>
                 <div class="kpi-label">Efficiency</div>
                 <div class="kpi-val" id="kpi-eff">94.2%</div>
                 <div class="kpi-sub" style="color: var(--green)">
@@ -1199,7 +1320,10 @@
                 </div>
               </div>
               <div class="kpi yellow kpi-wide">
-                <i class="fas fa-clock kpi-icon"></i>
+                <i
+                  class="fas fa-clock kpi-icon"
+                  style="color: var(--yellow)"
+                ></i>
                 <div class="kpi-label">Avg Cycle Time</div>
                 <div class="kpi-val" id="kpi-avgcycle">18.4 min</div>
                 <div class="kpi-sub">
@@ -1215,15 +1339,8 @@
               <i class="fas fa-play-circle" style="color: var(--green)"></i>
               <h2>Current Step</h2>
             </div>
-            <div
-              style="
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 1rem;
-                align-items: center;
-              "
-            >
-              <div>
+            <div class="card-body row">
+              <div class="col mb-2">
                 <div
                   style="
                     font-family: var(--fh);
@@ -1246,7 +1363,7 @@
                   Condition: time ≥ 30s
                 </div>
               </div>
-              <div>
+              <div class="col">
                 <div class="prog-label">
                   <span>Step progress</span><span id="step-pct">65%</span>
                 </div>
@@ -1265,7 +1382,7 @@
                   ETA: <span id="step-eta">~8 min</span>
                 </div>
               </div>
-              <div>
+              <div class="col">
                 <div class="prog-label">
                   <span>Cycle progress</span><span id="cycle-pct">20%</span>
                 </div>
@@ -1322,6 +1439,7 @@
 
           <!-- ALARMS + TREND -->
           <div
+            class="alarm-trend-grid"
             style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 1.1rem"
           >
             <div class="card">
@@ -1345,12 +1463,21 @@
         <!-- ═══ CYCLE ═══ -->
         <div id="page-cycle" class="page">
           <div class="topbar">
-            <div class="topbar-title">
-              <i
-                class="fas fa-sync-alt"
-                style="color: var(--orange); margin-right: 0.5rem"
-              ></i
-              >Cycle Control
+            <div class="topbar-main">
+              <button
+                class="sb-toggle topbar-menu"
+                onclick="toggleSidebar()"
+                title="Menu"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="topbar-title">
+                <i
+                  class="fas fa-sync-alt"
+                  style="color: var(--orange); margin-right: 0.5rem"
+                ></i
+                >Cycle Control
+              </div>
             </div>
             <div class="topbar-right">
               <span class="clock" id="clk2">--:--:--</span>
@@ -1421,12 +1548,21 @@
         <!-- ═══ RECIPES ═══ -->
         <div id="page-recipes" class="page">
           <div class="topbar">
-            <div class="topbar-title">
-              <i
-                class="fas fa-flask"
-                style="color: var(--orange); margin-right: 0.5rem"
-              ></i
-              >Recipe Management
+            <div class="topbar-main">
+              <button
+                class="sb-toggle topbar-menu"
+                onclick="toggleSidebar()"
+                title="Menu"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="topbar-title">
+                <i
+                  class="fas fa-flask"
+                  style="color: var(--orange); margin-right: 0.5rem"
+                ></i
+                >Recipe Management
+              </div>
             </div>
             <div class="topbar-right">
               <button class="btn btn-orange" onclick="openRecipeModal()">
@@ -1447,12 +1583,21 @@
         <!-- ═══ REPORT ═══ -->
         <div id="page-report" class="page">
           <div class="topbar">
-            <div class="topbar-title">
-              <i
-                class="fas fa-chart-bar"
-                style="color: var(--orange); margin-right: 0.5rem"
-              ></i
-              >Cycle Report
+            <div class="topbar-main">
+              <button
+                class="sb-toggle topbar-menu"
+                onclick="toggleSidebar()"
+                title="Menu"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="topbar-title">
+                <i
+                  class="fas fa-chart-bar"
+                  style="color: var(--orange); margin-right: 0.5rem"
+                ></i
+                >Cycle Report
+              </div>
             </div>
             <div class="topbar-right">
               <button
@@ -1752,6 +1897,7 @@
         if (el) el.classList.add("active");
         if (id === "report") renderReport();
         if (id === "cycle") drawCycleChart();
+        closeSidebar();
       }
       function openModal(id) {
         $(id).classList.add("open");
@@ -2308,6 +2454,20 @@
         a.download = "cycle_report.csv";
         a.click();
         toast("CSV exported successfully", "success");
+      }
+
+      // ══════════════════════════════════════════════
+      // SIDEBAR MOBILE TOGGLE
+      // ══════════════════════════════════════════════
+      function toggleSidebar() {
+        const sb = document.querySelector(".sidebar");
+        const ov = $("sb-overlay");
+        sb.classList.toggle("open");
+        ov.classList.toggle("open");
+      }
+      function closeSidebar() {
+        document.querySelector(".sidebar").classList.remove("open");
+        $("sb-overlay").classList.remove("open");
       }
 
       // ══════════════════════════════════════════════
